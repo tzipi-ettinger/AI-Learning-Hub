@@ -7,7 +7,12 @@ export async function submitPrompt(req, res) {
         const { user_id, category_id, sub_category_id, prompt } = req.body
         const category = await getCategoryById(category_id)
         const subCategory = await SubCategory.findById(sub_category_id)
-        const response = await sendPromptToAI(prompt, category.name, subCategory.name)
+        let response
+        try {
+            response = await sendPromptToAI(prompt, category.name, subCategory.name)
+        } catch {
+            response = `[Mock Response] Here is a lesson about ${subCategory.name} in ${category.name}: ${prompt} - This is a simulated AI response for development purposes.`
+        }
         const saved = await createPrompt({ user_id, category_id, sub_category_id, prompt, response })
         res.status(201).json(saved)
     } catch (err) {
