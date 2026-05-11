@@ -1,4 +1,5 @@
 import { getAllUsers, getUserById, updateDataOfUser, createUser, removeUser } from '../services/user.services.js'
+import User from '../models/users.model.js'
 
 export async function getUsers(req, res) {    
     try {
@@ -34,27 +35,14 @@ export async function updateUser(req, res) {
 
 export async function addUser(req, res) {
     try {
-        const body = req.body
-        await createUser(body)
-        res.send('User updated')
+        const { name, phone } = req.body
+        let user = await User.findOne({ phone })
+        if (!user) user = await createUser({ name, phone })
+        res.status(200).json(user)
     } catch (err) {
-        console.log(err)
-        res.status(500).json(`Error: ${ err.message }`)
+        res.status(500).json({ message: err.message })
     }
 }
-
-// export async function addUser(req, res) {
-//     try {
-//         console.log("ENTERED addUser");   // 👈 זה חייב להופיע
-//         console.log("BODY:", req.body);
-//         const body = req.body
-//         await createUser(body)
-//         res.send('User added')
-//     } catch (err) {
-//         console.log("ERROR:", err);
-//         res.status(500).json(`Error: ${ err.message }`)
-//     }
-// }
 
 
 export async function deleteUser(req, res) {
