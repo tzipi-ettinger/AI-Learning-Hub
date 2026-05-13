@@ -2,18 +2,12 @@ import { createPrompt, getPromptsByUser, getAllPrompts, sendPromptToAI } from '.
 import { getCategoryById } from '../services/category.services.js'
 import SubCategory from '../models/subCategory.model.js'
 
-/** Sends a prompt to OpenAI and saves the response. Falls back to mock if AI is unavailable */
 export async function submitPrompt(req, res) {
     try {
         const { user_id, category_id, sub_category_id, prompt } = req.body
         const category = await getCategoryById(category_id)
         const subCategory = await SubCategory.findById(sub_category_id)
-        let response
-        try {
-            response = await sendPromptToAI(prompt, category.name, subCategory.name)
-        } catch {
-            response = `[Mock Response] Here is a lesson about ${subCategory.name} in ${category.name}: ${prompt} - This is a simulated AI response for development purposes.`
-        }
+        const response = await sendPromptToAI(prompt, category.name, subCategory.name)
         const saved = await createPrompt({ user_id, category_id, sub_category_id, prompt, response })
         res.status(201).json(saved)
     } catch (err) {
