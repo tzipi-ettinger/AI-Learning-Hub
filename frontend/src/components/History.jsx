@@ -5,16 +5,9 @@ import { fetchHistory } from "../store/SubCategorySlice"
 import { Box, Button, Chip, Paper, Typography, Avatar, Divider } from "@mui/material"
 import ArrowBackIcon from "@mui/icons-material/ArrowBack"
 import SmartToyIcon from "@mui/icons-material/SmartToy"
+import BotSVG from "./BotSVG"
 
-const BotIcon = ({ size = 32 }) => (
-    <Box sx={{
-        width: size, height: size, borderRadius: "50%",
-        background: "linear-gradient(135deg, #a78bfa, #60a5fa)",
-        display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0
-    }}>
-        <SmartToyIcon sx={{ fontSize: size * 0.55, color: "#fff" }} />
-    </Box>
-)
+const BotImg = ({ size = 32 }) => <BotSVG size={size} />
 
 export default function History() {
     const dispatch = useDispatch()
@@ -31,7 +24,7 @@ export default function History() {
             <Box maxWidth={620} mx="auto" sx={{ animation: "fadeIn 0.5s ease forwards" }}>
 
                 <Box display="flex" flexDirection="column" alignItems="center" gap={1.5} mb={5}>
-                    <BotIcon size={44} />
+                    <BotImg size={44} />
                     <Typography variant="h6" fontWeight={700} color="#fff">Learning History</Typography>
                     <Box display="flex" alignItems="center" gap={2}>
                         <Chip label={`${history.length} sessions`} size="small"
@@ -45,7 +38,7 @@ export default function History() {
 
                 {history.length === 0 ? (
                     <Box textAlign="center" mt={10}>
-                        <BotIcon size={64} />
+                        <BotImg size={64} />
                         <Typography sx={{ color: "rgba(255,255,255,0.4)", mt: 2 }}>No sessions yet. Go learn something!</Typography>
                         <Button variant="outlined" sx={{ mt: 3, borderColor: "#a78bfa", color: "#a78bfa" }}
                             onClick={() => navigate("/learn")}>Start Learning</Button>
