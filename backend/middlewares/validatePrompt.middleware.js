@@ -1,3 +1,4 @@
+/** Validates that all required prompt fields are present in the request body */
 export function validatePrompt(req, res, next) {
     const { user_id, category_id, sub_category_id, prompt } = req.body
     if (!user_id || !category_id || !sub_category_id || !prompt)

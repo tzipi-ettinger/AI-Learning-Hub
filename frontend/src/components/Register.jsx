@@ -7,6 +7,13 @@ import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings"
 import SchoolIcon from "@mui/icons-material/School"
 import BotSVG from "./BotSVG"
 
+/** Floating bot icon for the register page */
+const BotIcon = () => (
+    <Box sx={{ mb: 2, animation: "float 3s ease-in-out infinite", filter: "drop-shadow(0 0 12px rgba(167,139,250,0.5))" }}>
+        <BotSVG size={90} />
+    </Box>
+)
+
 export default function Register() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -20,6 +27,7 @@ export default function Register() {
         else alert("Invalid admin code")
     }
 
+    /** Registers or logs in user by phone number */
     const handleSubmit = async (e) => {
         e.preventDefault()
         const result = await dispatch(addUser(form))
@@ -41,7 +49,7 @@ export default function Register() {
         background: "#5a5a6e",
         color: "#fff",
         boxShadow: "0 4px 24px rgba(90,90,110,0.4)",
-        "&:hover": { transform: "translateY(-2px)", background: "#6e6e85", boxShadow: "0 8px 32px rgba(90,90,110,0.5)" },
+        "&:hover": { transform: "translateY(-2px)", background: "#6e6e85" },
         transition: "all 0.25s ease"
     }
 
@@ -50,7 +58,7 @@ export default function Register() {
             position: "fixed", top: 0, left: 0, right: 0, bottom: 0,
             display: "flex", justifyContent: "center", alignItems: "center"
         }}>
-            <Paper elevation={6} sx={{
+            <Paper elevation={0} sx={{
                 p: 5, width: 440, borderRadius: 5,
                 background: "linear-gradient(160deg, #1a1a3e 0%, #2d2b6b 100%)",
                 backdropFilter: "blur(24px)",
@@ -63,8 +71,8 @@ export default function Register() {
                     <Typography variant="h4" fontWeight={800} letterSpacing={-1} sx={{ color: "#fff" }}>
                         AI Learning Hub
                     </Typography>
-                    <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.6)", mt: 0.5 }}>
-                        Hi! I'm Lexi 👋 your personal AI tutor
+                    <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.5)", mt: 0.5 }}>
+                        Hi! I'm Lexi your personal AI tutor
                     </Typography>
                 </Box>
 
@@ -86,7 +94,7 @@ export default function Register() {
                             sx={fieldSx} />
                         {error && <Typography color="error" mt={1} fontSize={13}>{error}</Typography>}
                         <Button fullWidth variant="contained" type="submit" size="large" disabled={loading} sx={btnSx}>
-                            {loading ? "Loading..." : "Let's Learn! "}
+                            {loading ? "Loading..." : "Let's Learn!"}
                         </Button>
                     </form>
                 ) : (

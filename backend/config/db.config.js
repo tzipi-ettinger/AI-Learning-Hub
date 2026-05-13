@@ -1,3 +1,4 @@
+/** Connects to MongoDB using the URI from environment variables */
 import { connect } from 'mongoose'
 
 export const connectDB = async () => {

@@ -1,38 +1,37 @@
 import { getAllUsers, getUserById, updateDataOfUser, createUser, removeUser } from '../services/user.services.js'
 import User from '../models/users.model.js'
 
-export async function getUsers(req, res) {    
+/** Returns all users */
+export async function getUsers(req, res) {
     try {
         const users = await getAllUsers()
-        if(users)
-            res.json(users)
-        else
-            res.send('Nothing Users')
+        if (users) res.json(users)
+        else res.send('Nothing Users')
     } catch (err) {
         res.status(500).json(err)
-     }
+    }
 }
 
+/** Returns a single user by ID */
 export async function getUser(req, res) {
     try {
-        const id = req.params.id
-        res.json(await getUserById(id))
+        res.json(await getUserById(req.params.id))
     } catch (err) {
         res.status(500).json(err)
     }
 }
 
+/** Updates a user by ID */
 export async function updateUser(req, res) {
     try {
-        const id = req.params.id
-        const body = req.body
-        await updateDataOfUser(id, body)
+        await updateDataOfUser(req.params.id, req.body)
         res.send('User updated')
     } catch (err) {
-        res.status(500).json(`Error: ${ err.message }`)
+        res.status(500).json(`Error: ${err.message}`)
     }
 }
 
+/** Registers a new user or logs in if phone already exists */
 export async function addUser(req, res) {
     try {
         const { name, phone } = req.body
@@ -44,16 +43,12 @@ export async function addUser(req, res) {
     }
 }
 
-
+/** Deletes a user by ID */
 export async function deleteUser(req, res) {
     try {
-        const id = req.params.id
-        await removeUser(id)
-        res.status(200)
-        res.send('User deleted')
+        await removeUser(req.params.id)
+        res.status(200).send('User deleted')
     } catch (err) {
-        res.status(500).json(`Error: ${ err.message }`)
+        res.status(500).json(`Error: ${err.message}`)
     }
 }
-
-
