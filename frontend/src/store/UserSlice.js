@@ -9,13 +9,14 @@ export const addUser = createAsyncThunk("user/addUser", async (userData) => {
 const UserSlice = createSlice({
     name: "user",
     initialState: {
-        currentUser: null,
+        currentUser: JSON.parse(localStorage.getItem("currentUser")) || null,
         loading: false,
         error: null
     },
     reducers: {
         logout: (state) => {
             state.currentUser = null
+            localStorage.removeItem("currentUser")
         }
     },
     extraReducers: (builder) => {
@@ -24,6 +25,7 @@ const UserSlice = createSlice({
             .addCase(addUser.fulfilled, (state, action) => {
                 state.loading = false
                 state.currentUser = action.payload
+                localStorage.setItem("currentUser", JSON.stringify(action.payload))
             })
             .addCase(addUser.rejected, (state, action) => {
                 state.loading = false

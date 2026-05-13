@@ -5,9 +5,9 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
 
 export async function sendPromptToAI(promptText, categoryName, subCategoryName) {
     const completion = await openai.chat.completions.create({
-        model: 'gpt-3.5-turbo',
+        model: 'gpt-4o',
         messages: [
-            { role: 'system', content: 'You are a helpful teacher. Provide clear and structured lessons.' },
+            { role: 'system', content: 'You are a helpful teacher. Provide clear and structured lessons. Keep your response concise, maximum 10 lines.' },
             { role: 'user', content: `Category: ${categoryName}, Sub-category: ${subCategoryName}. ${promptText}` }
         ]
     })
