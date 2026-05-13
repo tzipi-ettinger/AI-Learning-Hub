@@ -1,11 +1,14 @@
+/** PromptSlice - manages AI prompt submissions and user learning history */
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import { submitPrompt, getUserHistory } from "../api/api"
 
+/** Sends a prompt to the AI and stores the response */
 export const sendPrompt = createAsyncThunk("prompt/send", async (promptData) => {
     const res = await submitPrompt(promptData)
     return res.data
 })
 
+/** Fetches the learning history for a specific user */
 export const fetchHistory = createAsyncThunk("prompt/history", async (userId) => {
     const res = await getUserHistory(userId)
     return res.data

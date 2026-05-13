@@ -1,5 +1,6 @@
 import { getAllCategories, getCategoryById, createCategory, updateDataOfCategory, removeCategory, getSubCategoriesByCategoryId, createSubCategory } from '../services/category.services.js'
 
+/** Returns all categories */
 export async function getCategories(req, res) {
     try {
         res.json(await getAllCategories())
@@ -8,6 +9,7 @@ export async function getCategories(req, res) {
     }
 }
 
+/** Returns a single category by ID */
 export async function getCategory(req, res) {
     try {
         res.json(await getCategoryById(req.params.id))
@@ -16,6 +18,7 @@ export async function getCategory(req, res) {
     }
 }
 
+/** Creates a new category */
 export async function addCategory(req, res) {
     try {
         res.status(201).json(await createCategory(req.body))
@@ -24,6 +27,7 @@ export async function addCategory(req, res) {
     }
 }
 
+/** Updates a category by ID */
 export async function updateCategory(req, res) {
     try {
         res.json(await updateDataOfCategory(req.params.id, req.body))
@@ -32,6 +36,7 @@ export async function updateCategory(req, res) {
     }
 }
 
+/** Deletes a category by ID */
 export async function deleteCategory(req, res) {
     try {
         await removeCategory(req.params.id)
@@ -41,6 +46,7 @@ export async function deleteCategory(req, res) {
     }
 }
 
+/** Returns all subcategories for a given category ID */
 export async function getSubCategories(req, res) {
     try {
         res.json(await getSubCategoriesByCategoryId(req.params.id))
@@ -49,6 +55,7 @@ export async function getSubCategories(req, res) {
     }
 }
 
+/** Creates a new subcategory under a category */
 export async function addSubCategory(req, res) {
     try {
         res.status(201).json(await createSubCategory({ ...req.body, category_id: req.params.id }))

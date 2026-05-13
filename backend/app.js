@@ -1,3 +1,4 @@
+/** Express app setup - configures middleware and mounts all routes */
 import express from 'express'
 import cors from 'cors'
 import { logger } from './middlewares/logger.middlewares.js'
@@ -17,6 +18,7 @@ app.use('/api/categories', categoryRoutes)
 app.use('/api/prompts', promptRoutes)
 app.use('/api/admin', adminRoutes)
 
+/** Global error handler */
 app.use((err, req, res, next) => {
     res.status(500).json({ message: err.message })
 })

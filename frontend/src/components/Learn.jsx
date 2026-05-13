@@ -54,7 +54,7 @@ export default function Learn() {
     }
 
     return (
-        <Box sx={{ height: "100vh", display: "flex", flexDirection: "row", bgcolor: "#0f0c29", overflow: "hidden" }}>
+        <Box sx={{ height: "100vh", display: "flex", flexDirection: "row", overflow: "hidden" }}>
             <Box sx={{ width: 450, display: "flex", flexDirection: "column", p: 4, borderRight: "1px solid rgba(255,255,255,0.05)" }}>
                 <Box display="flex" alignItems="center" gap={2} mb={4}>
                     <BotIcon size={50} />

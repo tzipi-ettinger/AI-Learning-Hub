@@ -2,6 +2,7 @@ import { createPrompt, getPromptsByUser, getAllPrompts, sendPromptToAI } from '.
 import { getCategoryById } from '../services/category.services.js'
 import SubCategory from '../models/subCategory.model.js'
 
+/** Sends a prompt to OpenAI and saves the response. Falls back to mock if AI is unavailable */
 export async function submitPrompt(req, res) {
     try {
         const { user_id, category_id, sub_category_id, prompt } = req.body
@@ -20,6 +21,7 @@ export async function submitPrompt(req, res) {
     }
 }
 
+/** Returns all prompts for a specific user */
 export async function getUserHistory(req, res) {
     try {
         res.json(await getPromptsByUser(req.params.userId))
@@ -28,6 +30,7 @@ export async function getUserHistory(req, res) {
     }
 }
 
+/** Returns all prompts across all users (admin only) */
 export async function getAllHistory(req, res) {
     try {
         res.json(await getAllPrompts())

@@ -1,6 +1,8 @@
+/** UserSlice - manages the currently logged-in user. Persists to localStorage */
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import { registerUser } from "../api/api"
 
+/** Registers or logs in a user by phone number */
 export const addUser = createAsyncThunk("user/addUser", async (userData) => {
     const res = await registerUser(userData)
     return res.data
@@ -14,6 +16,7 @@ const UserSlice = createSlice({
         error: null
     },
     reducers: {
+        /** Clears the current user from state and localStorage */
         logout: (state) => {
             state.currentUser = null
             localStorage.removeItem("currentUser")
