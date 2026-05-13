@@ -10,9 +10,9 @@ import "./index.css"
 const darkTheme = createTheme({
     palette: {
         mode: "dark",
-        primary: { main: "#a78bfa" },
-        secondary: { main: "#60a5fa" },
-        background: { default: "#0f0c29", paper: "rgba(255,255,255,0.05)" },
+        primary: { main: "#38bdf8" },
+        secondary: { main: "#7dd3fc" },
+        background: { default: "#0a0f1e", paper: "rgba(255,255,255,0.04)" },
     },
     shape: { borderRadius: 12 },
     typography: { fontFamily: "'Segoe UI', sans-serif" },
@@ -24,7 +24,7 @@ const darkTheme = createTheme({
                     width: "100%",
                     margin: 0,
                     padding: 0,
-                    background: "linear-gradient(160deg, #0f0c29 0%, #302b63 50%, #24243e 100%)",
+                    background: "#3a3a4a",
                     backgroundAttachment: "fixed",
                 }
             }
@@ -32,8 +32,8 @@ const darkTheme = createTheme({
         MuiMenu: {
             styleOverrides: {
                 paper: {
-                    background: "#1e1b3a !important",
-                    border: "1px solid rgba(167,139,250,0.2)",
+                    background: "#0f1e35 !important",
+                    border: "1px solid rgba(56,189,248,0.2)",
                     backdropFilter: "none",
                 }
             }
@@ -41,8 +41,8 @@ const darkTheme = createTheme({
         MuiDialog: {
             styleOverrides: {
                 paper: {
-                    background: "#1e1b3a !important",
-                    border: "1px solid rgba(167,139,250,0.2)",
+                    background: "#0f1e35 !important",
+                    border: "1px solid rgba(56,189,248,0.2)",
                 }
             }
         }

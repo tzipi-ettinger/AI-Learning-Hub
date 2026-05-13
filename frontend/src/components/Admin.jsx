@@ -5,6 +5,7 @@ import { Box, Chip, Dialog, DialogContent, DialogTitle, IconButton, Paper, Table
 import CloseIcon from "@mui/icons-material/Close"
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings"
 import SmartToyIcon from "@mui/icons-material/SmartToy"
+import BotSVG from "./BotSVG"
 
 export default function Admin() {
     const dispatch = useDispatch()
@@ -104,7 +105,7 @@ export default function Admin() {
                                 </Paper>
                                 <Paper sx={{ p: 2.5, borderRadius: 2, background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
                                     <Box display="flex" alignItems="center" gap={1} mb={1}>
-                                        <SmartToyIcon sx={{ fontSize: 13, color: "#a78bfa" }} />
+                                        <BotSVG size={14} />
                                         <Typography variant="caption" sx={{ color: "#a78bfa", fontWeight: 600 }}>Lexi's Answer</Typography>
                                     </Box>
                                     <Typography fontSize={13} lineHeight={1.9} sx={{ color: "rgba(255,255,255,0.75)" }}>{h.response}</Typography>

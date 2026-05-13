@@ -138,4 +138,10 @@ OPENAI_API_KEY=sk-<your-openai-api-key>
 - Admin dashboard with all users and their prompt history
 - Clean chat-style UI with dark mode
 
+## Docker Setup
+
+To run the full stack using Docker:
+
+```bash
+docker-compose up --build
 

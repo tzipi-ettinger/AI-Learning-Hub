@@ -10,12 +10,14 @@ export async function submitPrompt(req, res) {
         let response
         try {
             response = await sendPromptToAI(prompt, category.name, subCategory.name)
-        } catch {
-            response = `[Mock Response] Here is a lesson about ${subCategory.name} in ${category.name}: ${prompt} - This is a simulated AI response for development purposes.`
+        } catch (aiErr) {
+            console.log('OpenAI Error:', aiErr.message)
+            response = `[Mock] Lesson about ${subCategory.name} in ${category.name}: ${prompt}`
         }
         const saved = await createPrompt({ user_id, category_id, sub_category_id, prompt, response })
         res.status(201).json(saved)
     } catch (err) {
+        console.log('Submit Error:', err.message)
         res.status(500).json({ message: err.message })
     }
 }
