@@ -150,4 +150,15 @@ To run the full stack using Docker:
 
 ```bash
 docker-compose up --build
+```
 
+> MongoDB is hosted on Atlas — no local DB container needed.
+
+---
+
+## Live Demo
+
+- **Frontend:** https://ai-learning-hub-rho.vercel.app
+- **Backend API:** https://ai-learning-hub-backend-gs5h.onrender.com
+
+> Note: The backend is hosted on Render's free tier and may take 30-60 seconds to wake up after inactivity.
