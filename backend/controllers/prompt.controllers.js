@@ -25,10 +25,17 @@ export async function getUserHistory(req, res) {
     }
 }
 
-/** Returns all prompts across all users (admin only) */
+/** Returns all prompts across all users with pagination — supports ?page=1&limit=10 */
 export async function getAllHistory(req, res) {
     try {
-        res.json(await getAllPrompts())
+        const page = parseInt(req.query.page) || 1
+        const limit = parseInt(req.query.limit) || 10
+        const skip = (page - 1) * limit
+        const [history, total] = await Promise.all([
+            Prompt.find().populate('user_id', 'name phone').populate('category_id', 'name').populate('sub_category_id', 'name').sort({ createdAt: -1 }).skip(skip).limit(limit),
+            Prompt.countDocuments()
+        ])
+        res.json({ history, total, page, totalPages: Math.ceil(total / limit) })
     } catch (err) {
         res.status(500).json({ message: err.message })
     }

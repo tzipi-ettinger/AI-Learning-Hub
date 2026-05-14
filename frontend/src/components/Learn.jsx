@@ -7,6 +7,7 @@ import { Box, Button, MenuItem, Paper, TextField, Typography, CircularProgress, 
 import SendIcon from "@mui/icons-material/Send"
 import HistoryIcon from "@mui/icons-material/History"
 import PersonIcon from "@mui/icons-material/Person"
+import SwitchAccountIcon from "@mui/icons-material/SwitchAccount"
 import BotSVG from "./BotSVG"
 
 /** Bot icon with glow effect */
@@ -66,6 +67,15 @@ export default function Learn() {
                         <Typography variant="caption" color="rgba(255,255,255,0.4)">Learning Assistant</Typography>
                     </Box>
                 </Box>
+
+                <Button
+                    variant="outlined"
+                    startIcon={<SwitchAccountIcon />}
+                    onClick={() => navigate("/")}
+                    sx={{ mb: 2, borderRadius: 2, borderColor: "rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.6)", textTransform: "none" }}
+                >
+                    Switch User
+                </Button>
 
                 <Button
                     variant="outlined"

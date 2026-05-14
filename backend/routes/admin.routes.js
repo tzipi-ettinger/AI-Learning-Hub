@@ -2,10 +2,11 @@
 import express from 'express'
 import { getAllHistory } from '../controllers/prompt.controllers.js'
 import { getUsers } from '../controllers/user.collntrollers.js'
+import { authMiddleware } from '../middlewares/auth.middleware.js'
 
 const router = express.Router()
 
-router.get('/users', getUsers)      // GET all users
-router.get('/history', getAllHistory) // GET all prompts history
+router.get('/users', authMiddleware, getUsers)
+router.get('/history', authMiddleware, getAllHistory)
 
 export default router

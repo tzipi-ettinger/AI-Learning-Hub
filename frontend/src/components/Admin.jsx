@@ -1,9 +1,12 @@
-/** Admin component - displays all users and their learning history */
+/** Admin component - displays all users and their learning history with pagination */
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchAllUsers, fetchAllHistory } from "../store/AdminSlice"
-import { Box, Chip, Dialog, DialogContent, DialogTitle, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Avatar, Divider } from "@mui/material"
+import { getUserHistoryById } from "../api/api"
+import { useNavigate } from "react-router-dom"
+import { Box, Chip, Dialog, DialogContent, DialogTitle, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Avatar, Divider, Pagination, Button } from "@mui/material"
 import CloseIcon from "@mui/icons-material/Close"
+import ArrowBackIcon from "@mui/icons-material/ArrowBack"
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings"
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday"
 import SmartToyIcon from "@mui/icons-material/SmartToy"
@@ -11,21 +14,27 @@ import BotSVG from "./BotSVG"
 
 export default function Admin() {
     const dispatch = useDispatch()
-    const { users, history } = useSelector((state) => state.admin)
+    const navigate = useNavigate()
+    const { users, history, totalUsersPages, totalHistoryPages } = useSelector((state) => state.admin)
     const [selectedUser, setSelectedUser] = useState(null)
+    const [userHistory, setUserHistory] = useState([])
+    const [usersPage, setUsersPage] = useState(1)
+    const [historyPage, setHistoryPage] = useState(1)
 
-    useEffect(() => {
-        dispatch(fetchAllUsers())
-        dispatch(fetchAllHistory())
-    }, [dispatch])
+    useEffect(() => { dispatch(fetchAllUsers(usersPage)) }, [dispatch, usersPage])
+    useEffect(() => { dispatch(fetchAllHistory(historyPage)) }, [dispatch, historyPage])
 
-    const userHistory = history.filter((h) => h.user_id?._id === selectedUser?._id)
+    const handleUserClick = async (user) => {
+        setSelectedUser(user)
+        const res = await getUserHistoryById(user._id)
+        setUserHistory(res.data)
+    }
 
     return (
         <Box minHeight="100vh"  py={6} px={4} sx={{ animation: "fadeIn 0.5s ease forwards" }}>
 
             {/* Header */}
-            <Box display="flex" flexDirection="column" alignItems="center" gap={1} mb={5}>
+            <Box display="flex" flexDirection="column" alignItems="center" gap={2} mb={5}>
                 <Box sx={{
                     width: 56, height: 56, borderRadius: "16px",
                     background: "linear-gradient(135deg, #a78bfa, #60a5fa)",
@@ -37,6 +46,14 @@ export default function Admin() {
                 <Typography variant="h5" fontWeight={800} color="#fff">Admin Dashboard</Typography>
                 <Chip label={`${users.length} registered users`} size="small"
                     sx={{ background: "rgba(167,139,250,0.1)", color: "#a78bfa", border: "1px solid rgba(167,139,250,0.2)" }} />
+                <Button
+                    variant="outlined"
+                    startIcon={<ArrowBackIcon />}
+                    onClick={() => navigate("/")}
+                    sx={{ borderRadius: 2, borderColor: "rgba(255,255,255,0.2)", color: "rgba(255,255,255,0.6)", textTransform: "none", "&:hover": { borderColor: "#a78bfa", color: "#a78bfa" } }}
+                >
+                    Back to Home
+                </Button>
             </Box>
 
             {/* Users Table */}
@@ -54,7 +71,7 @@ export default function Admin() {
                     </TableHead>
                     <TableBody>
                         {users.map((u) => (
-                            <TableRow key={u._id} onClick={() => setSelectedUser(u)}
+                            <TableRow key={u._id} onClick={() => handleUserClick(u)}
                                 sx={{ cursor: "pointer", "&:hover": { background: "rgba(167,139,250,0.05)" },
                                     "& td": { color: "rgba(255,255,255,0.8)" } }}>
                                 <TableCell>
@@ -67,7 +84,7 @@ export default function Admin() {
                                 </TableCell>
                                 <TableCell>{u.phone}</TableCell>
                                 <TableCell align="right">
-                                    <Chip size="small" label={history.filter((h) => h.user_id?._id === u._id).length}
+                                    <Chip size="small" label={u.sessionCount ?? 0}
                                         sx={{ background: "rgba(96,165,250,0.1)", color: "#60a5fa", fontWeight: 700 }} />
                                 </TableCell>
                             </TableRow>
@@ -75,6 +92,18 @@ export default function Admin() {
                     </TableBody>
                 </Table>
             </TableContainer>
+
+            {/* Users pagination */}
+            {totalUsersPages > 1 && (
+                <Box display="flex" justifyContent="center" mt={3}>
+                    <Pagination
+                        count={totalUsersPages}
+                        page={usersPage}
+                        onChange={(_, val) => setUsersPage(val)}
+                        sx={{ "& .MuiPaginationItem-root": { color: "#a78bfa" } }}
+                    />
+                </Box>
+            )}
 
             {/* User History Dialog */}
             <Dialog open={!!selectedUser} onClose={() => setSelectedUser(null)} maxWidth="md" fullWidth>

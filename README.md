@@ -11,6 +11,9 @@ A mini AI-powered learning platform that allows users to select topics, send pro
 - **MongoDB** + **Mongoose** — Database and ORM
 - **OpenAI GPT API** — AI-generated lessons
 - **dotenv** — Environment variable management
+- **JWT (jsonwebtoken)** — Secure token-based authentication
+
+
 
 ### Frontend
 - **React** + **Vite** — Frontend framework
@@ -137,6 +140,9 @@ OPENAI_API_KEY=sk-<your-openai-api-key>
 - Personal learning history per user
 - Admin dashboard with all users and their prompt history
 - Clean chat-style UI with dark mode
+- JWT-based authentication — API routes are protected with JSON Web Tokens
+
+
 
 ## Docker Setup
 
