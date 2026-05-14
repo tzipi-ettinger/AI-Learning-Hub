@@ -24,7 +24,7 @@ const darkTheme = createTheme({
                     width: "100%",
                     margin: 0,
                     padding: 0,
-                    background: "#3a3a4a",
+                    background: "linear-gradient(160deg, #0f0c29 0%, #302b63 50%, #24243e 100%)",
                     backgroundAttachment: "fixed",
                 }
             }
